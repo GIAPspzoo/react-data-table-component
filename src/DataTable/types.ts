@@ -64,6 +64,7 @@ export type TableProps<T> = {
 	noTableHead?: boolean;
 	onChangePage?: PaginationChangePage;
 	onChangeRowsPerPage?: PaginationChangeRowsPerPage;
+	onCheckboxClicked?: (row: T, e: React.MouseEvent) => void;
 	onRowClicked?: (row: T, e: React.MouseEvent) => void;
 	onRowDoubleClicked?: (row: T, e: React.MouseEvent) => void;
 	onRowMouseEnter?: (row: T, e: React.MouseEvent) => void;

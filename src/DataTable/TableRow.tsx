@@ -59,6 +59,7 @@ type DProps<T> = Pick<
 	| 'highlightOnHover'
 	| 'expandableInheritConditionalStyles'
 	| 'keyField'
+	| 'onCheckboxClicked'
 	| 'onRowClicked'
 	| 'onRowDoubleClicked'
 	| 'onRowMouseEnter'
@@ -109,6 +110,7 @@ function Row<T>({
 	id,
 	expandableInheritConditionalStyles,
 	keyField,
+	onCheckboxClicked = noop,
 	onRowClicked = noop,
 	onRowDoubleClicked = noop,
 	onRowMouseEnter = noop,
@@ -187,6 +189,13 @@ function Row<T>({
 		[onRowMouseLeave, row],
 	);
 
+	const handleCheckboxClick = React.useCallback(
+		(row, event) => {
+			onCheckboxClicked(row, event);
+		},
+		[onCheckboxClicked],
+	);
+
 	const rowKeyField = prop(row as TableRow, keyField);
 	const { style, classNames } = getConditionalStyle(row, conditionalRowStyles, ['rdt_TableRow']);
 	const highlightSelected = selectableRowsHighlight && selected;
@@ -222,6 +231,7 @@ function Row<T>({
 						selectableRowDisabled={selectableRowDisabled}
 						selectableRowsSingle={selectableRowsSingle}
 						onSelectedRow={onSelectedRow}
+						onClick={handleCheckboxClick}
 					/>
 				)}
 

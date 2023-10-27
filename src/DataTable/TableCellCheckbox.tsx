@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { CellBase } from './Cell';
 import Checkbox from './Checkbox';
-import { RowState, SingleRowAction, ComponentProps } from './types';
+import { RowState, SingleRowAction, ComponentProps, TableProps } from './types';
 
 const TableCellCheckboxStyle = styled(CellBase)`
 	flex: 0 0 48px;
@@ -24,6 +24,7 @@ type TableCellCheckboxProps<T> = {
 	selectableRowsSingle: boolean;
 	selectableRowDisabled: RowState<T>;
 	onSelectedRow: (action: SingleRowAction<T>) => void;
+	onClick?: TableProps<T>['onCheckboxClicked'];
 };
 
 function TableCellCheckbox<T>({
@@ -37,10 +38,13 @@ function TableCellCheckbox<T>({
 	selectableRowsSingle,
 	selectableRowDisabled,
 	onSelectedRow,
+	onClick,
 }: TableCellCheckboxProps<T>): JSX.Element {
 	const disabled = !!(selectableRowDisabled && selectableRowDisabled(row));
 
-	const handleOnRowSelected = () => {
+	const handleOnRowSelected = (event: React.MouseEvent<Element, MouseEvent>) => {
+		onClick?.(row, event);
+
 		onSelectedRow({
 			type: 'SELECT_SINGLE_ROW',
 			row,

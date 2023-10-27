@@ -94,6 +94,7 @@ export const defaultProps = {
 	direction: Direction.AUTO,
 	onChangePage: noop,
 	onChangeRowsPerPage: noop,
+	onCheckboxClicked: noop,
 	onRowClicked: noop,
 	onRowDoubleClicked: noop,
 	onRowMouseEnter: noop,

@@ -91,6 +91,7 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 		contextActions = defaultProps.contextActions,
 		contextComponent = defaultProps.contextComponent,
 		expandableRows = defaultProps.expandableRows,
+		onCheckboxClicked = defaultProps.onCheckboxClicked,
 		onRowClicked = defaultProps.onRowClicked,
 		onRowDoubleClicked = defaultProps.onRowDoubleClicked,
 		onRowMouseEnter = defaultProps.onRowMouseEnter,
@@ -202,6 +203,8 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 	const handleSelectedRow = React.useCallback((action: SingleRowAction<T>) => {
 		dispatch(action);
 	}, []);
+
+	const handleOnCheckboxClicked = React.useCallback((row, e) => onCheckboxClicked(row, e), [onCheckboxClicked]);
 
 	const handleRowClicked = React.useCallback((row, e) => onRowClicked(row, e), [onRowClicked]);
 
@@ -461,6 +464,7 @@ function DataTable<T>(props: TableProps<T>): JSX.Element {
 											selectableRowsSingle={selectableRowsSingle}
 											striped={striped}
 											onRowExpandToggled={onRowExpandToggled}
+											onCheckboxClicked={handleOnCheckboxClicked}
 											onRowClicked={handleRowClicked}
 											onRowDoubleClicked={handleRowDoubleClicked}
 											onRowMouseEnter={handleRowMouseEnter}
